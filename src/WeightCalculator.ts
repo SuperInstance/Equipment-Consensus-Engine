@@ -19,7 +19,8 @@ export type DomainType =
   | 'technical'     // Engineering, implementation decisions
   | 'social'        // Community, societal impact decisions
   | 'business'      // Commercial, strategic decisions
-  | 'personal';     // Individual-focused decisions
+  | 'personal'       // Individual-focused decisions
+  | 'maritime';      // Vessel/fleet operations at sea
 
 /**
  * Weight profile for a domain
@@ -244,6 +245,43 @@ const DEFAULT_PROFILES: Record<DomainType, WeightProfile> = {
       },
     ],
   },
+  maritime: {
+    pathosWeight: 0.20,
+    logosWeight: 0.55,
+    ethosWeight: 0.25,
+    domain: 'maritime',
+    description: 'Maritime operations prioritize safety, logistics, and crew welfare',
+    adjustmentRules: [
+      {
+        name: 'safety_critical',
+        condition: 'Decision involves crew safety or vessel integrity',
+        perspective: 'ethos',
+        adjustment: 0.15,
+        priority: 10,
+      },
+      {
+        name: 'weather_hazard',
+        condition: 'Weather or sea conditions are a factor',
+        perspective: 'logos',
+        adjustment: 0.1,
+        priority: 9,
+      },
+      {
+        name: 'crew_welfare',
+        condition: 'Decision affects crew rest, health, or morale',
+        perspective: 'pathos',
+        adjustment: 0.1,
+        priority: 8,
+      },
+      {
+        name: 'regulatory_compliance',
+        condition: 'Decision involves catch limits, seasons, or regulations',
+        perspective: 'ethos',
+        adjustment: 0.1,
+        priority: 9,
+      },
+    ],
+  },
   personal: {
     pathosWeight: 0.45,
     logosWeight: 0.30,
@@ -328,6 +366,13 @@ const DOMAIN_CHARACTERISTICS: Record<DomainType, DomainCharacteristics> = {
     ethicalImportance: 0.5,
     uncertaintyLevel: 0.4,
     stakeholderComplexity: 0.6,
+  },
+  maritime: {
+    emotionalImportance: 0.3,
+    logicalImportance: 0.8,
+    ethicalImportance: 0.6,
+    uncertaintyLevel: 0.5,
+    stakeholderComplexity: 0.4,
   },
   personal: {
     emotionalImportance: 0.8,
@@ -545,6 +590,15 @@ export class WeightCalculator {
     });
     scores.push({ domain: 'personal', score: personalScore });
 
+    // Check for maritime indicators
+    const maritimeScore = this.scoreDomain(lowerContent, {
+      'vessel': 2, 'crew': 2, 'safety': 2, 'captain': 2, 'fleet': 1,
+      'navigation': 2, 'weather': 1, 'sea': 1, 'port': 1, 'harbor': 1,
+      'maritime': 2, 'fishing': 1, 'catch': 1, 'tide': 1, 'anchor': 1,
+      'deck': 1, 'haul': 1, 'sortie': 2, 'bearing': 1, 'course': 1,
+    });
+    scores.push({ domain: 'maritime', score: maritimeScore });
+
     // Find highest score
     scores.sort((a, b) => b.score - a.score);
     
@@ -607,6 +661,7 @@ export class WeightCalculator {
       'social',
       'business',
       'personal',
+      'maritime',
     ];
   }
 
