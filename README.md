@@ -1,6 +1,9 @@
 # @superinstance/equipment-consensus-engine
 
-Multi-agent deliberation equipment with Pathos/Logos/Ethos weighting for consensus building in the SuperInstance ecosystem.
+Multi-agent deliberation equipment with Pathos/Logos/Ethos weighting for consensus building in the Cocapn fleet.
+
+## Brand Line
+> Tripartite deliberation — Pathos, Logos, Ethos — the Cocapn fleet's decision layer.
 
 ## Overview
 
@@ -448,9 +451,16 @@ async function makeDecision(proposition: string, context: string) {
 }
 ```
 
-## License
+## Fleet Context
 
-MIT
+Part of the Cocapn fleet. Related repos:
+- [Equipment-Swarm-Coordinator](https://github.com/SuperInstance/Equipment-Swarm-Coordinator) — multi-agent orchestration
+- [plato-sdk](https://github.com/SuperInstance/plato-sdk) — agent communication protocol
+- [JetsonClaw1-vessel](https://github.com/Lucineer/JetsonClaw1-vessel) — edge-native agent case study
+- [AIR](https://github.com/SuperInstance/AIR) — adaptive intelligence runtime
+
+---
+🦐 Cocapn fleet — lighthouse keeper architecture
 
 ## Contributing
 
