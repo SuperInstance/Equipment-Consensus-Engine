@@ -5,10 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+<<<<<<< Updated upstream
     "build": "tsc",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build",
     "test": "vitest run"
+=======
+    "prepublishOnly": "echo nobuild"
+>>>>>>> Stashed changes
   },
   "keywords": [
     "superinstance",
